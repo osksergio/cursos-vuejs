@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios HTML</title>
+    <style>
+        #conteudo {
+            padding: 30px 0px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Exercícios HTML</h1>
+    </header>
+    <nav>
+        <!-- abaixo a maneira mais usual ou mais simples -->
+        <!--
+            <a href="exercicios/teste.html">00 - Teste </a> |
+            <a href="exercicios/temp.html"> 01 - Temp</a>        
+        -->
+
+        <!-- 
+            abaixo a maneira avançada usando uma tag personalida ou
+            propriedade personalizada, mesclando HTML com Javascript 
+        -->
+        <a href wm-nav="exercicios/teste.html">00 - Teste </a> |
+        <a href wm-nav="exercicios/texto1.html"> 01 - Texto 1</a> |
+        <a href wm-nav="exercicios/texto2.html"> 02 - Texto 2</a> |
+        <a href wm-nav="exercicios/listas.html"> 03 - Listas</a> |
+        <a href wm-nav="exercicios/listaAninhada.html"> 04 - Lista Aninhada</a>        
+    </nav>
+    <section id="conteudo"></section>
+    <footer>
+        Curso de Web Moderno
+    </footer>
+    
+    <script>
+        //document.querySelectorAll('a').forEach(link => {   //se fosse a tag "a"
+        document.querySelectorAll('[wm-nav]').forEach(link => {
+            const conteudo = document.getElementById('conteudo')
+
+            link.onclick = function(e) {
+                e.preventDefault()    
+                //fetch(link.href) //se fosse para obter o href da tag "a"
+                fetch(link.getAttribute('wm-nav'))
+                    .then(resp => resp.text())
+                    .then(html => conteudo.innerHTML = html)
+            }
+        })
+    </script>
+</body>
+</html>
